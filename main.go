@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/app",handler)
+	http.HandleFunc("/",handler)
 	http.ListenAndServe(":8000",nil)
 }
 
