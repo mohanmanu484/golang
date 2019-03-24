@@ -5,18 +5,27 @@ import (
 	"log"
 	"net/http"
 	"os"
+
 )
 
 func main() {
 
-	port := os.Getenv("PORT")
+	port := getPort()
 
+
+	/*r := mux.NewRouter()
+	r.HandleFunc("/", HomeHandler)*/
+	http.HandleFunc("/", handler)
+	http.ListenAndServe(":"+port, nil)
+}
+
+func getPort() string {
+	port := os.Getenv("PORT")
+	fmt.Println("port is " + port)
 	if port == "" {
-		//port="8000"
 		log.Fatal("$PORT must be set")
 	}
-	http.HandleFunc("/",handler)
-	http.ListenAndServe(":"+port,nil)
+	return port
 }
 
 func handler(writer http.ResponseWriter, request *http.Request) {
